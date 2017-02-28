@@ -1,0 +1,77 @@
+<div class="row">
+
+    {{# if patients}}
+    <h1>Description of Patient:</h1>
+
+            <table class="tbl-add-patient table table-striped">
+                <tr>
+                    <td class="form-group">
+                        Firstname:
+                    </td>
+                    <td class="form-group">
+                        {{patients.firstName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-group">
+                        Lastname:
+                    </td>
+                    <td class="form-group">
+                        {{patients.lastName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-group">
+                        Date of Birth :
+                    </td>
+                    <td class="form-group">
+                        {{patients.dateOfBirth}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-group">
+                        Age :
+                    </td>
+                    <td class="form-group">
+                        {{patients.age}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-group">
+                        Gender:
+                    </td>
+                    <td class="form-group">
+                        {{patients.gender}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-group">
+                        Phone :
+                    </td>
+                    <td class="form-group">
+                        {{patients.phone}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="form-group">
+                        Description :
+                    </td>
+                    <td class="form-group">
+                        <textarea rows="5" id="comment" class="well well-lg">
+                            {{patients.description}}
+                        </textarea>
+                    </td>
+                </tr>
+
+            </table>
+
+
+            <div>
+                <a class="btn btn-primary" href="/patient/retrieve-patient/submit?firstname={{patients.firstName}}" role="button">Go Back</a>
+            </div>
+
+    {{/if}}
+
+
+
+</div>

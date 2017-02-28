@@ -1,0 +1,44 @@
+
+.description{
+    display:inline-block;
+    width:180px;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}
+
+.description:hover{
+    overflow: visible;
+}
+
+.carousel-caption
+{
+    color:black;
+    -webkit-box-shadow: inset hoff voff blur color;
+    -moz-box-shadow: inset hoff voff blur color;
+    box-shadow: inset hoff voff blur color;
+}
+
+.span.label.label-default
+{
+    width:200px;
+}
+.label-default
+{
+    width:200px;
+}
+.description-value
+{
+    padding-left: 20px;
+}
+.tbl-add-patient
+{
+
+}
+
+.vertical-list
+{
+    margin: 0;
+    padding: 0;
+}
+

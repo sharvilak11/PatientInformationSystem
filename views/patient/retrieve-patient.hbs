@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <h1>Search Patient</h1>
+        <form action="/patient/retrieve-patient/submit" method="get" class="form-horizontal">
+            <br />
+            <div class="form-group">
+                <label for="firstname">Firstname</label>
+                <input type="text" id="firstname" name="firstname" class="form-control" autocomplete="off" placeholder="Enter First-Name" />
+            </div>
+            <div style="text-align: center;">
+            <button id="search" type="submit" class="btn btn-primary disabled" disabled="disabled">Search</button>
+            </div>
+        </form>
+        <br />
+    </div>
+
+        {{# if patients}}
+        <div class="success">
+                <table class="table table-striped .table-responsive .table-hover text-center" style="float:left">
+                    <tr>
+                        <th class="form-group text-center">
+                            First Name
+                        </th>
+                        <th class="form-group text-center">
+                            Last Name
+                        </th>
+
+
+                        <th class="form-group text-center">
+                            Date of Birth
+                        </th>
+
+
+                        <th class="form-group text-center">
+                            Age
+                        </th>
+
+
+                        <th class="form-group text-center">
+                            Gender
+                        </th>
+
+                        <th class="form-group text-center">
+                            Phone no.
+                        </th>
+
+                        <th class="form-group text-center">
+                            Description
+                        </th>
+                    </tr>
+
+                    {{# each patients}}
+                        <tr>
+                            <td class="form-group">
+                            {{this.firstName}}
+                            </td>
+                            <td class="form-group">
+                                {{this.lastName}}
+                            </td>
+                            <td class="form-group">
+                                {{this.dateOfBirth}}
+                            </td>
+                            <td class="form-group">
+                                {{this.age}}
+                            </td>
+                            <td>
+                                {{this.gender}}
+                            </td>
+                            <td class="form-group">
+                                {{this.phone}}
+                            </td>
+                            <td class="description form-group">
+                                <a href="/patient/description-search?firstname={{this.firstName}}&lastname={{this.lastName}}&phone={{this.phone}}">{{this.description}}</a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    {{/if}}
+                    </table>
+</div>
+                        {{# if nofoundmessage}}
+                            <div class="alert alert-danger text-center">Patient not found!!</div>
+                        {{/if}}
+
+
+
+
+
+
+</div>
+
