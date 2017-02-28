@@ -2,6 +2,7 @@
  * Created by Sharvilak on 26-02-2017.
  */
 
+
 $(document).on('change','.progresstxtbox',function(){
 
     var txtboxes = document.getElementById('firstclass').getElementsByTagName('input');

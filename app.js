@@ -12,8 +12,8 @@ var flash = require('connect-flash');
 var validator = require('express-validator');
 
 var index = require('./routes/index');
-mongoose.connect('localhost:27017/hospital');
-
+//mongoose.connect('localhost:27017/hospital');
+mongoose.connect('mongodb://sharvi:admin@ds039431.mlab.com:39431/hospital');
 
 var app = express();
 

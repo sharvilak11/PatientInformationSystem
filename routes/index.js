@@ -3,7 +3,15 @@ var router = express.Router();
 var url=require('url');
 //var dboperations = require('../config/dboperations');
 var Patient = require('../models/patient');
+var handlebars = require('express-handlebars');
 
+var Handlebars = handlebars.create();
+
+Handlebars.handlebars.registerHelper('trimString', function(passedString) {
+    passedString+="";
+    var theString = passedString.substring(0,15);
+    return new Handlebars.handlebars.SafeString(theString);
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -34,11 +42,9 @@ router.post('/patient/add-patient/submit',function(req,res,next)
             req.session.success = true;
         }
         //console.log(req.session.errors);
-
+        var flag=0;
        if(!errors) {
 
-
-           var flag = 0;
            Patient.findOne({
                'firstName': req.body.firstname,
                'lastName': req.body.lastname,
@@ -46,43 +52,40 @@ router.post('/patient/add-patient/submit',function(req,res,next)
            }, function (err, patient) {
 
                if (err) {
-                   console.log(err);
+                   //console.log(err);
                    req.session.errors = "Something went wrong. Please try again";
                    req.session.success = false;
-                   flag=0;
+
                }
                else if (patient) {
-                   req.session.errors = "Patient with same firstname, lastname and phone number already exists!";
                    req.session.success = false;
-                   //console.log(req.session.success);
-                   flag=0;
+                   req.session.errors = "Patient with same firstname, lastname and phone number already exists!";
+                   //console.log(req.session.errors);
                }
                else {
-                   flag = 1;
+
+                   var newPatient = new Patient({
+                       firstName: req.body.firstname,
+                       lastName: req.body.lastname,
+                       dateOfBirth: req.body.dateofbirth,
+                       age: req.body.age,
+                       gender: req.body.gender,
+                       phone: req.body.phone,
+                       description: req.body.description
+                   });
+
+                   newPatient.save(function (err, result) {
+                       //console.log('saved');
+                       if (err) {
+                           //console.log(err);
+                           req.session.errors = "Something went wrong. Please try again";
+                           req.session.success = false;
+                       }
+                   });
+
                }
            });
 
-           if (flag === 1) {
-               var newPatient = new Patient({
-                   firstName: req.body.firstname,
-                   lastName: req.body.lastname,
-                   dateOfBirth: req.body.dateofbirth,
-                   age: req.body.age,
-                   gender: req.body.gender,
-                   phone: req.body.phone,
-                   description: req.body.description
-               });
-
-               newPatient.save(function (err, result) {
-
-                   if (err) {
-                       console.log(err);
-                       req.session.errors = "Something went wrong. Please try again";
-                       req.session.success = false;
-                   }
-               });
-
-           }
        }
     res.redirect('/patient/add-patient');
 });
@@ -99,7 +102,7 @@ router.get('/patient/retrieve-patient/submit',function(req,res,next){
             if(firstname==='') {
                 var nofound = "Patient not found!!";
                 res.render('patient/retrieve-patient',{nofoundmessage:nofound});
-                console.log('Inside null');
+                //console.log('Inside null');
             }
             else {
                 Patient.find({'firstName': {'$regex':firstname}}, function (err, docs) {
@@ -125,7 +128,7 @@ router.get('/patient/description-search',function(req,res,next){
     else
     {
         Patient.findOne({'firstName':firstname,'lastName':lastname, 'phone':phone},function(err,docs) {
-            console.log(docs);
+            //console.log(docs);
             res.render('patient/description', {patients: docs});
 
         });
